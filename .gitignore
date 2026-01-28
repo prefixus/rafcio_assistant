@@ -9,7 +9,7 @@ wheels/
 # Virtual environments
 .venv
 .env
-knowledge_base/
+knowledge_base
 .mypy_cache
 .pytest_cache
 .ruff_cache
