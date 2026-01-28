@@ -10,3 +10,6 @@ wheels/
 .venv
 .env
 knowledge_base/
+.mypy_cache
+.pytest_cache
+.ruff_cache
