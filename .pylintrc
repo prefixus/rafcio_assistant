@@ -1,0 +1,11 @@
+[MASTER]
+ignore=venv,.git,__pycache__
+
+[MESSAGES CONTROL]
+disable=missing-module-docstring
+
+[TYPECHECK]
+ignored-modules=tests
+
+[pylint:tests]
+disable=missing-module-docstring,missing-function-docstring
