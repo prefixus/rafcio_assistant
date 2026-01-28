@@ -14,6 +14,7 @@ class MockVectorStoreAdapter(VectorStoreAdapter):
     def __init__(self, **kwargs):
         self.collection: List[Dict[str, Any]] = []
         self.kwargs = kwargs
+        self.provider = "mock"
 
     def add_documents(
         self, texts: List[str], metadatas: Optional[List[Dict[str, Any]]] = None
