@@ -5,7 +5,14 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from src.config import settings
 from src.embeddings import LMStudioEmbeddings
 
+# Marker for tests that require a local model server (LM Studio)
+REQUIRES_LM_STUDIO = pytest.mark.skipif(
+    os.getenv("GITHUB_ACTIONS") == "true",
+    reason="Skipping test that requires local LM Studio in GitHub Actions",
+)
 
+
+@REQUIRES_LM_STUDIO
 def test_embeddings_connectivity():
     """
     Test if we can connect to the embedding server and get a response.
@@ -24,6 +31,7 @@ def test_embeddings_connectivity():
         pytest.fail(f"Unexpected error during connectivity test: {e}")
 
 
+@REQUIRES_LM_STUDIO
 def test_embeddings_with_chunking():
     """
     Test embedding generation for chunked documents from a file.
