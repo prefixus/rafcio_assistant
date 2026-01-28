@@ -13,9 +13,9 @@ A modular Python-based agentic assistant using local LLMs via LM Studio, designe
 - **Evaluation:** DeepEval (answer relevancy, faithfulness metrics)
 - **Tool System:** MCP (Model Context Protocol) server for file operations and calculations
 - **Configuration:** `.env` with feature flags
-- **Code Linting:** `ruff`, `mypy`, `pylint`, `black` with `pre-commit` hooks
+- **Code Linting:** `ruff`, `mypy`, `pylint` with `pre-commit` hooks
 - **Testing:** `pytest` with `coverage` and `deepdiff`
-- **CI/CD:** GitHub Actions with `pre-commit`, `pytest`, `coverage`, `black`, `ruff`, `mypy`, `pylint`
+- **CI/CD:** GitHub Actions with `pre-commit`, `pytest`, `coverage`, `ruff`, `mypy`, `pylint`
 
 ### Why ChromaDB?
 ChromaDB runs embedded (no container needed), persists to disk automatically, and has native LangChain integration - ideal for rapid prototyping. You can upgrade to Qdrant later if needed. [justjoin](https://justjoin.it/job-offer/n-ix-senior-genai-engineer-warszawa-ai)

@@ -4,13 +4,18 @@ Supports multiple backends via an adapter pattern.
 """
 
 from abc import ABC, abstractmethod
-from typing import List, Dict, Any, Optional, cast
+from typing import Any, Dict, List, Optional, cast
+
+import chromadb
 
 
 class VectorStoreAdapter(ABC):
     """
     Abstract base class for vector store adapters.
     """
+
+    def __init__(self, embedding_function: Any = None):
+        self.embedding_function = embedding_function
 
     @abstractmethod
     def add_documents(
@@ -32,12 +37,18 @@ class ChromaVectorStoreAdapter(VectorStoreAdapter):
     Adapter for ChromaDB vector store.
     """
 
-    def __init__(self, persist_directory: str, collection_name: str):
-        # pylint: disable=import-outside-toplevel
-        import chromadb
+    def __init__(
+        self,
+        persist_directory: str,
+        collection_name: str,
+        embedding_function: Any = None,
+    ):
+        super().__init__(embedding_function=embedding_function)
 
         self.client = chromadb.PersistentClient(path=persist_directory)
-        self.collection = self.client.get_or_create_collection(name=collection_name)
+        self.collection = self.client.get_or_create_collection(
+            name=collection_name, embedding_function=embedding_function
+        )
         self.provider = "chroma"
 
     def add_documents(
@@ -72,8 +83,9 @@ class VectorStoreManager:  # pylint: disable=too-few-public-methods
     Manager to handle vector store initialization and adapter selection.
     """
 
-    def __init__(self, provider: str, **kwargs):
+    def __init__(self, provider: str, embedding_model: Any = None, **kwargs):
         self.provider = provider.lower()
+        self.embedding_model = embedding_model
         self.kwargs = kwargs
         self._adapter: Optional[VectorStoreAdapter] = None
 
@@ -90,6 +102,7 @@ class VectorStoreManager:  # pylint: disable=too-few-public-methods
                     "persist_directory", "./data/chroma_db"
                 ),
                 collection_name=self.kwargs.get("collection_name", "rafcio_assistant"),
+                embedding_function=self.embedding_model,
             )
 
         if self.provider == "mock":

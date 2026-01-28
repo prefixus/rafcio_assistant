@@ -7,7 +7,7 @@ This document outlines the step-by-step implementation plan for the Personal RAG
 
 1.  **[ ] Environment Setup**
     *   Initialize project using `uv`: `uv init` (if not already done).
-    *   Install core dependencies: `langchain`, `langgraph`, `chromadb`, `rank-bm25`, `pydantic`, `python-dotenv`, `pytest`, `ruff`, `mypy`, `black`.
+    *   Install core dependencies: `langchain`, `langgraph`, `chromadb`, `rank-bm25`, `pydantic`, `python-dotenv`, `pytest`, `ruff`, `mypy`.
     *   Create `.env` file based on the template in `technical_specification.md`.
     *   Configure `.gitignore` to exclude `.venv`, `__pycache__`, and data directories.
 
@@ -99,7 +99,7 @@ This document outlines the step-by-step implementation plan for the Personal RAG
 **Goal:** Clean up and prepare for presentation.
 
 1.  **[ ] Linter & Quality Check**
-    *   Run `ruff`, `mypy`, `pylint`, and `black` on the codebase.
+    *   Run `ruff`, `mypy`, and `pylint` on the codebase.
     *   Ensure all tests pass.
 
 2.  **[ ] Documentation**

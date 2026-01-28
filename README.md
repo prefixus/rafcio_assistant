@@ -14,7 +14,7 @@ A modular Python-based agentic assistant designed for RAG (Retrieval-Augmented G
 - **Vector Store:** ChromaDB (Embedded)
 - **LLM Provider:** LM Studio (OpenAI-compatible API)
 - **Evaluation:** DeepEval
-- **Linters:** Ruff, MyPy, PyLint, Black (via Pre-commit)
+- **Linters:** Ruff, MyPy, PyLint (via Pre-commit)
 
 ## 🛠️ Setup & Configuration
 
