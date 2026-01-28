@@ -20,6 +20,13 @@ class Settings(BaseSettings):
     )
     embedding_model: str = Field(default="text-embedding-bge-m3", alias="EMB_MODEL")
 
+    # Vector Store Configuration
+    vector_store_provider: str = Field(default="chroma", alias="VECTOR_STORE_PROVIDER")
+    vector_store_url: Optional[str] = Field(default=None, alias="VECTOR_STORE_URL")
+    vector_store_collection: str = Field(
+        default="rafcio_assistant", alias="VECTOR_STORE_COLLECTION"
+    )
+
     # Feature Flags (from technical specification)
     enable_hybrid_search: bool = Field(default=True, alias="ENABLE_HYBRID_SEARCH")
     enable_mcp_tools: bool = Field(default=True, alias="ENABLE_MCP_TOOLS")
