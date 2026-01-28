@@ -25,7 +25,7 @@ A modular Python-based agentic assistant designed for RAG (Retrieval-Augmented G
 ### 2. Model Setup
 Download and load the following models in LM Studio:
 - **LLM:** `gpt-oss:20b` (or similar for chat/reasoning)
-- **Embeddings:** `gemma-embedding` (or `text-embedding-bge-m3`)
+- **Embeddings:** `text-embedding-bge-m3` (or `gemma-embedding`)
 
 Ensure the local server is running at `http://localhost:1234`.
 
