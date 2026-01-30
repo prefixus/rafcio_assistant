@@ -3,8 +3,10 @@ This module provides a custom LangChain Embeddings class for LM Studio.
 """
 
 from typing import List, Optional
+
 import httpx
 from langchain_core.embeddings import Embeddings
+
 from src.config import settings
 
 
@@ -49,3 +51,13 @@ class LMStudioEmbeddings(Embeddings):
         """Embed a single query."""
         result = self._get_embeddings([text])
         return result[0] if result else []
+
+    def __call__(self, texts: List[str]) -> List[List[float]]:
+        """
+        Make the class compatible with ChromaDB's EmbeddingFunction protocol.
+        """
+        return self.embed_documents(texts)
+
+    def name(self) -> str:
+        """Name of the embedding function."""
+        return "lm_studio"

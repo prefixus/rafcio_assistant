@@ -29,11 +29,11 @@ This document outlines the step-by-step implementation plan for the Personal RAG
 ## Phase 2: RAG Pipeline (1.5 hours)
 **Goal:** Implement document ingestion and hybrid search.
 
-1.  **[ ] Document Ingestion Path**
+1.  **[x] Document Ingestion Path**
     *   Create `./knowledge_base/` and `./workspace/` directories.
     *   `scripts/ingest.py`: Implement the ingestion pipeline.
         *   Load `.txt`, `.md`, and `.pdf` files.
-        *   Use `RecursiveCharacterTextSplitter` (500 chars, 100 overlap).
+        *   Use `RecursiveCharacterTextSplitter` (512 chars, 128 overlap as per config).
         *   Batch embed and store in ChromaDB with metadata.
 
 2.  **[ ] Hybrid Retrieval Engine**
