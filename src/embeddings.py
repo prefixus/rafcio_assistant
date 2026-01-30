@@ -2,7 +2,7 @@
 This module provides a custom LangChain Embeddings class for LM Studio.
 """
 
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import httpx
 from langchain_core.embeddings import Embeddings
@@ -47,16 +47,30 @@ class LMStudioEmbeddings(Embeddings):
             return []
         return self._get_embeddings(texts)
 
-    def embed_query(self, text: str) -> List[float]:
-        """Embed a single query."""
+    def embed_query(self, text: Any = "", **kwargs) -> Any:
+        """
+        Embed a single query or multiple queries.
+        Supports:
+        - LangChain style: embed_query(text="...") -> List[float]
+        - ChromaDB style: embed_query(input=["..."]) -> List[List[float]]
+        """
+        if "input" in kwargs:
+            input_val = kwargs["input"]
+            if isinstance(input_val, list):
+                return self.embed_documents(input_val)
+            return self._get_embeddings([input_val])[0]
+
+        if isinstance(text, list):
+            return self.embed_documents(text)
+
         result = self._get_embeddings([text])
         return result[0] if result else []
 
-    def __call__(self, texts: List[str]) -> List[List[float]]:
+    def __call__(self, input: List[str]) -> List[List[float]]:  # pylint: disable=redefined-builtin
         """
         Make the class compatible with ChromaDB's EmbeddingFunction protocol.
         """
-        return self.embed_documents(texts)
+        return self.embed_documents(input)
 
     def name(self) -> str:
         """Name of the embedding function."""

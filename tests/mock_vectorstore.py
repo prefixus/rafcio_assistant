@@ -2,7 +2,8 @@
 Mock vector store adapter for testing purposes.
 """
 
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
+
 from src.vectorstore import VectorStoreAdapter
 
 
@@ -12,6 +13,7 @@ class MockVectorStoreAdapter(VectorStoreAdapter):
     """
 
     def __init__(self, **kwargs):
+        super().__init__()
         self.collection: List[Dict[str, Any]] = []
         self.kwargs = kwargs
         self.provider = "mock"
@@ -31,3 +33,7 @@ class MockVectorStoreAdapter(VectorStoreAdapter):
     def delete_collection(self) -> None:
         """Clear the mock store."""
         self.collection = []
+
+    def get_all_documents(self) -> List[Dict[str, Any]]:
+        """Retrieve all documents from the mock store."""
+        return self.collection

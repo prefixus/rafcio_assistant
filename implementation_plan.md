@@ -36,7 +36,7 @@ This document outlines the step-by-step implementation plan for the Personal RAG
         *   Use `RecursiveCharacterTextSplitter` (512 chars, 128 overlap as per config).
         *   Batch embed and store in ChromaDB with metadata.
 
-2.  **[ ] Hybrid Retrieval Engine**
+2.  **[x] Hybrid Retrieval Engine**
     *   `src/retrieval.py`: Implement the `HybridRetriever`.
         *   Vector search via ChromaDB.
         *   Keyword search via `rank-bm25`.

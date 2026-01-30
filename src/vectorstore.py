@@ -31,6 +31,10 @@ class VectorStoreAdapter(ABC):
     def delete_collection(self) -> None:
         """Delete the current collection."""
 
+    @abstractmethod
+    def get_all_documents(self) -> List[Dict[str, Any]]:
+        """Retrieve all documents and their metadata from the store."""
+
 
 class ChromaVectorStoreAdapter(VectorStoreAdapter):
     """
@@ -76,6 +80,15 @@ class ChromaVectorStoreAdapter(VectorStoreAdapter):
         name = self.collection.name
         self.client.delete_collection(name=name)
         self.collection = self.client.get_or_create_collection(name=name)
+
+    def get_all_documents(self) -> List[Dict[str, Any]]:
+        """Retrieve all documents and their metadata from Chroma."""
+        results = self.collection.get()
+        formatted_results = []
+        if results["documents"] and results["metadatas"]:
+            for doc, meta in zip(results["documents"], results["metadatas"]):
+                formatted_results.append({"text": doc, "metadata": meta})
+        return formatted_results
 
 
 class VectorStoreManager:  # pylint: disable=too-few-public-methods
