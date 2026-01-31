@@ -25,15 +25,24 @@ class LMStudioEmbeddings(Embeddings):
 
     def _get_embeddings(self, texts: List[str]) -> List[List[float]]:
         url = f"{self.base_url}/embeddings"
-        payload = {"input": texts, "model": self.model}
+        all_embeddings = []
+        batch_size = 16  # Smaller batches are safer for local models
 
         try:
-            with httpx.Client(timeout=30.0) as client:
-                response = client.post(url, json=payload)
-                response.raise_for_status()
-                data = response.json()
-                # LM Studio follows OpenAI format: {"data": [{"embedding": [...], "index": 0}, ...]}
-                return [item["embedding"] for item in data.get("data", [])]
+            with httpx.Client(timeout=300.0) as client:
+                for i in range(0, len(texts), batch_size):
+                    batch = texts[i : i + batch_size]
+                    payload = {"input": batch, "model": self.model}
+                    response = client.post(url, json=payload)
+                    response.raise_for_status()
+                    data = response.json()
+                    # LM Studio follows OpenAI format:
+                    # {"data": [{"embedding": [...], "index": 0}, ...]}
+                    batch_embeddings = [
+                        item["embedding"] for item in data.get("data", [])
+                    ]
+                    all_embeddings.extend(batch_embeddings)
+                return all_embeddings
         except httpx.HTTPError as e:
             raise RuntimeError(f"Failed to connect to LM Studio at {url}: {e}") from e
         except Exception as e:
