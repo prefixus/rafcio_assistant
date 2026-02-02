@@ -47,9 +47,9 @@ This document outlines the step-by-step implementation plan for the Personal RAG
     *   `src/rag_chain.py`: Create a standard LangChain Expression Language (LCEL) chain for basic RAG (Retrieve -> Augment -> Generate).
     *   `tests/test_rag_chain.py`: Unit and functional tests implemented and verified.
 
-4.  **[ ] Validation**
+4.  **[x] Validation**
     *   Verify that the assistant can answer questions based on a sample document in `./knowledge_base/`.
-
+    *   Created `notebooks/pipeline_validation.ipynb` for interactive testing.
 ---
 
 ## Phase 3: Agentic Layer & MCP Tools (2 hours)

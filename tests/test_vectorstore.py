@@ -1,8 +1,10 @@
 import os
 import shutil
 import tempfile
+
 import pytest
-from src.vectorstore import VectorStoreManager, ChromaVectorStoreAdapter
+
+from src.vectorstore import ChromaVectorStoreAdapter, VectorStoreManager
 from tests.mock_vectorstore import MockVectorStoreAdapter
 
 # Marker for tests that require a local environment or can be slow

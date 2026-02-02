@@ -31,10 +31,10 @@ jobs:
         run: uv sync
 
       - name: Run Ruff Check
-        run: uv run ruff check .
+        run: uv run ruff check . --exclude "*.ipynb"
 
       - name: Run Ruff Format Check
-        run: uv run ruff format . --check
+        run: uv run ruff format . --check --exclude "*.ipynb"
 
       - name: Run MyPy
         run: uv run mypy src

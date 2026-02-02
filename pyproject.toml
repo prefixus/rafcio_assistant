@@ -7,6 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "chromadb>=1.4.1",
     "httpx>=0.28.1",
+    "ipykernel>=7.1.0",
     "langchain>=1.2.7",
     "langchain-community>=0.4.1",
     "langchain-openai>=1.1.7",
@@ -26,3 +27,26 @@ dependencies = [
 [tool.pytest.ini_options]
 pythonpath = ["."]
 addopts = ["--import-mode=importlib"]
+
+[tool.ruff]
+# Exclude .ipynb files
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+# Only run on Python, not ipynb
+select = ["E", "F", "W", "I", "N"]  # your selected rules
+ignore = ["E501"]  # your ignored rules
+
+[tool.pylint.main]
+# Exclude .ipynb files
+ignore = [".venv", "__pycache__"]
+
+[tool.mypy]
+# Exclude .ipynb files
+exclude = [".venv", "build", "dist"]

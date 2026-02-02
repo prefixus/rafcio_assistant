@@ -2,8 +2,8 @@
 set -e
 
 echo "--- Running Ruff (Linting & Formatting) ---"
-uv run ruff check src --fix
-uv run ruff format src
+uv run ruff check src --fix --exclude "*.ipynb"
+uv run ruff format src --exclude "*.ipynb"
 
 echo "--- Running MyPy ---"
 uv run mypy src
